@@ -7,9 +7,9 @@ python -m venv <environment_name>
 Then activate it:
 ```
 # Linux command
-source venv/bin/activate
+source <environment_name>/bin/activate
 # Windows command
-.\venv\Scripts\activate
+.\<environment_name>\Scripts\activate
 ```
 
 Now regardless if a python venv was used, you may install the dependencies. This code was developed using Python 3.12.1
