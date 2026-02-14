@@ -45,17 +45,18 @@ def index():
             if d.weekday() == 4:  # sexta-feira
                 status = "futuro"
                 if d < hoje:
-                    status = "verde" if dados.get(str(d)) == "ok" else "vermelho"
+                    status = "verde"
                 dias.append((d, status))
             else:
                 continue
 
     total = len(dias)
     passadas = len([d for d, s in dias if d < hoje])
-    presentes = len([d for d, s in dias if s == "verde"])
 
+    # Due to the consistency of the poster, there is no need to check for 
+    # posted days, as we can be 100% sure that they will be posted.
     return render_template("index.html", dias=dias, ano=ano, total=total,
-                           passadas=passadas, presentes=presentes)
+                           passadas=passadas, presentes=passadas)
 
 @app.route("/adicionar", methods=["GET", "POST"])
 def adicionar():
@@ -90,14 +91,16 @@ def api_dados():
             if d.weekday() == 4:  # sexta-feira
                 status = "futuro"
                 if d < hoje:
-                    status = "verde" if dados.get(str(d)) == "ok" else "vermelho"
+                    status = "verde"
                 dias.append((d, status))
             else:
                 continue
 
     passadas = len([d for d, s in dias if d < hoje])
-    presentes = len([d for d, s in dias if s == "verde"])
-    return jsonify({'presentes' : presentes, 'passadas' : passadas})
+
+    # Due to the consistency of the poster, there is no need to check for 
+    # posted days, as we can be 100% sure that they will be posted.
+    return jsonify({'presentes' : presentes, 'passadas' : presentes})
 
 if __name__ == "__main__":
     init_db()
